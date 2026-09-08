@@ -5,41 +5,43 @@ A full-stack learning management platform where students can discover courses, e
 ## ✨ Features
 
 ### Student
-- User registration and login
-- Browse courses
-- Search courses by keyword
-- Filter courses by category
-- View course details and lessons
-- Enroll in courses
-- Navigate between lessons
-- Mark lessons as completed
-- Track course progress
-- Take course quizzes
-- View quiz scores
-- Student dashboard with learning statistics
+
+* User registration and login
+* Browse courses
+* Search courses by keyword
+* Filter courses by category
+* View course details and lessons
+* Enroll in courses
+* Navigate between lessons
+* Mark lessons as completed
+* Track course progress
+* Take course quizzes
+* View quiz scores
+* Student dashboard with learning statistics
 
 ### Admin
-- Secure admin login
-- Admin dashboard with platform statistics
-- Create, update, and delete courses
-- Create, update, and delete lessons
-- Create quizzes and manage questions
-- View registered students
-- View course enrollments
-- View student learning progress
+
+* Secure admin login
+* Admin dashboard with platform statistics
+* Create, update, and delete courses
+* Create, update, and delete lessons
+* Create quizzes and manage questions
+* View registered students
+* View course enrollments
+* View student learning progress
 
 ## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|---|---|
-| Frontend | React 18, TypeScript, React Router |
-| Styling | Tailwind CSS |
-| UI Icons | Lucide React |
-| Backend | Python, Flask |
-| API | Flask REST API, Flask-CORS |
-| Database | SQLite |
-| Authentication | Flask sessions, Werkzeug password hashing |
-| Build Tool | Vite |
+|Layer|Technologies|
+|-|-|
+|Frontend|React 18, TypeScript, React Router|
+|Styling|Tailwind CSS|
+|UI Icons|Lucide React|
+|Backend|Python, Flask|
+|API|Flask REST API, Flask-CORS|
+|Database|SQLite|
+|Authentication|Flask sessions, Werkzeug password hashing|
+|Build Tool|Vite|
 
 ## 🏗️ Architecture
 
@@ -53,7 +55,7 @@ A full-stack learning management platform where students can discover courses, e
                ▼
 ┌─────────────────────────────┐
 │        Flask REST API       │
-│ Authentication & Business   │
+│ Authentication \& Business   │
 │          Logic              │
 └──────────────┬──────────────┘
                │ SQL
@@ -62,7 +64,7 @@ A full-stack learning management platform where students can discover courses, e
 │          SQLite             │
 │ Users, Courses, Lessons,    │
 │ Enrollments, Progress,      │
-│ Quizzes & Results           │
+│ Quizzes \& Results           │
 └─────────────────────────────┘
 ```
 
@@ -76,13 +78,13 @@ online-learning-platform/
 │   ├── database.py
 │   ├── requirements.txt
 │   └── routes/
-│       ├── auth_routes.py
-│       ├── course_routes.py
-│       ├── dashboard_routes.py
-│       ├── enrollment_routes.py
-│       ├── lesson_routes.py
-│       ├── progress_routes.py
-│       └── quiz_routes.py
+│       ├── auth\_routes.py
+│       ├── course\_routes.py
+│       ├── dashboard\_routes.py
+│       ├── enrollment\_routes.py
+│       ├── lesson\_routes.py
+│       ├── progress\_routes.py
+│       └── quiz\_routes.py
 │
 ├── src/
 │   ├── components/
@@ -104,14 +106,14 @@ online-learning-platform/
 
 The application uses SQLite with tables for:
 
-- Users and roles
-- Courses
-- Lessons
-- Enrollments
-- Lesson progress
-- Quizzes
-- Quiz questions
-- Quiz results
+* Users and roles
+* Courses
+* Lessons
+* Enrollments
+* Lesson progress
+* Quizzes
+* Quiz questions
+* Quiz results
 
 Relationships connect users with enrollments and progress, while courses connect to lessons and quizzes.
 
@@ -119,13 +121,13 @@ Relationships connect users with enrollments and progress, while courses connect
 
 The Flask backend provides REST endpoints for:
 
-- **Authentication** — registration, login, logout, current-user information
-- **Courses** — listing, searching, creating, updating, and deleting courses
-- **Lessons** — retrieving and managing course lessons
-- **Enrollments** — enrolling students and retrieving their courses
-- **Progress** — recording and retrieving lesson completion
-- **Quizzes** — creating quizzes, managing questions, submitting answers, and retrieving results
-- **Dashboards** — student and administrator statistics
+* **Authentication** — registration, login, logout, current-user information
+* **Courses** — listing, searching, creating, updating, and deleting courses
+* **Lessons** — retrieving and managing course lessons
+* **Enrollments** — enrolling students and retrieving their courses
+* **Progress** — recording and retrieving lesson completion
+* **Quizzes** — creating quizzes, managing questions, submitting answers, and retrieving results
+* **Dashboards** — student and administrator statistics
 
 ## ⚙️ Getting Started
 
@@ -133,18 +135,18 @@ The Flask backend provides REST endpoints for:
 
 Install:
 
-- Python 3.10 or later
-- Node.js 18 or later
-- npm
+* Python 3.10 or later
+* Node.js 18 or later
+* npm
 
-### 1. Clone the repository
+### 1\. Clone the repository
 
 ```bash
 git clone https://github.com/siva7101984/online-learning-platform.git
 cd online-learning-platform
 ```
 
-### 2. Set up the backend
+### 2\. Set up the backend
 
 ```bash
 cd backend
@@ -154,7 +156,7 @@ python -m venv venv
 Activate the virtual environment on Windows:
 
 ```bash
-venv\Scripts\activate
+venv\\Scripts\\activate
 ```
 
 Install dependencies:
@@ -175,7 +177,7 @@ The backend runs on:
 http://localhost:5000
 ```
 
-### 3. Set up the frontend
+### 3\. Set up the frontend
 
 Open a second terminal in the project root:
 
@@ -193,7 +195,7 @@ Do not commit secrets or environment files to GitHub.
 Create environment variables for deployment as needed, for example:
 
 ```text
-SECRET_KEY=your-secure-secret-key
+SECRET\_KEY=your-secure-secret-key
 ```
 
 The repository's `.gitignore` excludes `.env` files.
@@ -215,47 +217,70 @@ The repository's `.gitignore` excludes `.env` files.
 
 ## 📸 Screenshots
 
-Screenshots can be added here to showcase the main application screens:
 
-- Home / Course listing
-- Login and registration
-- Student dashboard
-- Course details
-- Lesson view
-- Quiz
-- Admin dashboard
+
+\### Home Page
+
+
+
+!\[Home Page](docs/screenshots/home.png)
+
+
+
+\### Courses
+
+
+
+!\[Courses](docs/screenshots/courses.png)
+
+
+
+\### Student Dashboard
+
+
+
+!\[Student Dashboard](docs/screenshots/student-dashboard.png)
+
+
+
+\### Course \& Lesson
+
+
+
+!\[Course \& Lesson](docs/screenshots/course-lesson.png)
 
 ## 🚀 Future Enhancements
 
-- Video-based lessons
-- Course completion certificates
-- Discussion forums
-- Email notifications
-- Payment integration
-- More advanced analytics
-- Cloud database and production deployment
+* Video-based lessons
+* Course completion certificates
+* Discussion forums
+* Email notifications
+* Payment integration
+* More advanced analytics
+* Cloud database and production deployment
 
 ## 📌 Project Highlights
 
 This project demonstrates practical experience with:
 
-- Full-stack web application development
-- React and TypeScript component design
-- REST API development with Flask
-- Authentication and session management
-- Role-based application features
-- Relational database design
-- CRUD operations
-- Progress tracking
-- Quiz and result management
-- Frontend-backend integration
+* Full-stack web application development
+* React and TypeScript component design
+* REST API development with Flask
+* Authentication and session management
+* Role-based application features
+* Relational database design
+* CRUD operations
+* Progress tracking
+* Quiz and result management
+* Frontend-backend integration
 
 ## 👨‍💻 Author
 
 **Siva Prasad**
 
-B.Tech — Computer Science / AI & Data Science
+B.Tech — Computer Science / AI \& Data Science
 
----
+\---
 
 ⭐ If you find this project useful, consider giving the repository a star.
+
