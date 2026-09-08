@@ -35,7 +35,10 @@ from routes.dashboard_routes import dashboard_bp
 app = Flask(__name__)
 
 # SECRET_KEY is used to sign session cookies so they can't be tampered with.
-app.config["SECRET_KEY"] = "learning-platform-secret-key-2024"
+app.config["SECRET_KEY"] = os.environ.get(
+    "SECRET_KEY",
+    "dev-secret-key-change-me"
+)
 
 # CORS allows the React frontend (running on a different port) to make requests to Flask.
 CORS(app, supports_credentials=True)
