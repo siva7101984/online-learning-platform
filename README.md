@@ -1,194 +1,261 @@
-# Online Learning & Course Management Platform
+# Online Learning Platform
 
-A full-stack web application built with **React**, **Flask**, and **SQLite** that allows students to browse courses, enroll, complete lessons, take quizzes, and track their progress — while instructors can manage courses, lessons, and quizzes.
+A full-stack learning management platform where students can discover courses, enroll in courses, complete lessons, track learning progress, and take quizzes. Administrators can manage courses, lessons, quizzes, students, enrollments, and progress from a dedicated dashboard.
 
-## Features
+## ✨ Features
 
 ### Student
-- Register and log in
-- Browse, search, and filter courses by category
-- View course details and lesson lists
+- User registration and login
+- Browse courses
+- Search courses by keyword
+- Filter courses by category
+- View course details and lessons
 - Enroll in courses
-- View lessons with Previous/Next navigation
+- Navigate between lessons
 - Mark lessons as completed
-- Track course progress with progress bars
-- Take quizzes and view scores
-- View personal dashboard with stats
+- Track course progress
+- Take course quizzes
+- View quiz scores
+- Student dashboard with learning statistics
 
-### Admin / Instructor
-- Log in to admin dashboard
-- Create, edit, and delete courses
-- Add, edit, and delete lessons
-- Create quizzes and manage quiz questions
-- View all students
-- View all enrollments
-- View student progress
+### Admin
+- Secure admin login
+- Admin dashboard with platform statistics
+- Create, update, and delete courses
+- Create, update, and delete lessons
+- Create quizzes and manage questions
+- View registered students
+- View course enrollments
+- View student learning progress
 
-## Technology Stack
+## 🛠️ Tech Stack
 
-| Layer | Technology |
+| Layer | Technologies |
 |---|---|
-| Frontend | React 18, React Router, Tailwind CSS, Lucide Icons |
-| Backend | Python Flask, Flask-CORS |
+| Frontend | React 18, TypeScript, React Router |
+| Styling | Tailwind CSS |
+| UI Icons | Lucide React |
+| Backend | Python, Flask |
+| API | Flask REST API, Flask-CORS |
 | Database | SQLite |
-| Auth | Werkzeug password hashing, Flask sessions |
+| Authentication | Flask sessions, Werkzeug password hashing |
 | Build Tool | Vite |
 
-## Architecture
+## 🏗️ Architecture
 
-```
-React Frontend (port 5174)
-       |
-       | HTTP requests using fetch()
-       ↓
-Flask REST API (port 5000)
-       |
-       ↓
-SQLite Database (learning.db)
-```
-
-**Data flow example:**
-1. User clicks "Enroll" in React
-2. React calls `fetch('/api/enrollments', { method: 'POST' })`
-3. Flask receives the request, validates the session
-4. Flask executes `INSERT INTO enrollments ...` in SQLite
-5. Flask returns JSON response `{ "message": "Successfully enrolled." }`
-6. React updates the UI to show "Continue Learning"
-
-## Database Schema
-
-```
-USERS
-  id, name, email, password, role, created_at
-
-COURSES
-  id, title, description, category, instructor, image, created_at
-
-LESSONS
-  id, course_id (FK→courses), title, content, lesson_order
-
-ENROLLMENTS
-  id, user_id (FK→users), course_id (FK→courses), enrolled_at
-
-PROGRESS
-  id, user_id, course_id, lesson_id, completed, completed_at
-
-QUIZZES
-  id, course_id (FK→courses), title
-
-QUESTIONS
-  id, quiz_id (FK→quizzes), question, option_a/b/c/d, correct_answer
-
-QUIZ_RESULTS
-  id, user_id, quiz_id, score, total_questions, attempted_at
+```text
+┌─────────────────────────────┐
+│      React + TypeScript     │
+│        Frontend             │
+│      Vite + Tailwind CSS    │
+└──────────────┬──────────────┘
+               │ HTTP / JSON
+               ▼
+┌─────────────────────────────┐
+│        Flask REST API       │
+│ Authentication & Business   │
+│          Logic              │
+└──────────────┬──────────────┘
+               │ SQL
+               ▼
+┌─────────────────────────────┐
+│          SQLite             │
+│ Users, Courses, Lessons,    │
+│ Enrollments, Progress,      │
+│ Quizzes & Results           │
+└─────────────────────────────┘
 ```
 
-## API Endpoints
+## 📂 Project Structure
 
-### Auth
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/register` | Register new user |
-| POST | `/api/login` | Login |
-| POST | `/api/logout` | Logout |
-| GET | `/api/user` | Get current user |
+```text
+online-learning-platform/
+├── backend/
+│   ├── app.py
+│   ├── auth.py
+│   ├── database.py
+│   ├── requirements.txt
+│   └── routes/
+│       ├── auth_routes.py
+│       ├── course_routes.py
+│       ├── dashboard_routes.py
+│       ├── enrollment_routes.py
+│       ├── lesson_routes.py
+│       ├── progress_routes.py
+│       └── quiz_routes.py
+│
+├── src/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── api.ts
+│   ├── App.tsx
+│   └── main.tsx
+│
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── tailwind.config.js
+├── tsconfig.json
+└── vite.config.ts
+```
 
-### Courses
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/courses` | List courses (supports ?search= & ?category=) |
-| GET | `/api/courses/<id>` | Get single course |
-| POST | `/api/courses` | Create course (admin) |
-| PUT | `/api/courses/<id>` | Update course (admin) |
-| DELETE | `/api/courses/<id>` | Delete course (admin) |
+## 🗄️ Database Design
 
-### Lessons
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/courses/<course_id>/lessons` | List lessons |
-| POST | `/api/courses/<course_id>/lessons` | Add lesson (admin) |
-| PUT | `/api/lessons/<id>` | Update lesson (admin) |
-| DELETE | `/api/lessons/<id>` | Delete lesson (admin) |
+The application uses SQLite with tables for:
 
-### Enrollments
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/enrollments` | Enroll in course |
-| GET | `/api/enrollments/user/<user_id>` | Get user's enrollments |
+- Users and roles
+- Courses
+- Lessons
+- Enrollments
+- Lesson progress
+- Quizzes
+- Quiz questions
+- Quiz results
 
-### Progress
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/progress` | Mark lesson complete |
-| GET | `/api/progress/<course_id>` | Get progress for course |
+Relationships connect users with enrollments and progress, while courses connect to lessons and quizzes.
 
-### Quizzes
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/courses/<course_id>/quiz` | Get quiz |
-| POST | `/api/quizzes` | Create quiz (admin) |
-| POST | `/api/quizzes/<quiz_id>/questions` | Add question (admin) |
-| DELETE | `/api/questions/<question_id>` | Delete question (admin) |
-| POST | `/api/quizzes/<quiz_id>/submit` | Submit quiz answers |
-| GET | `/api/quizzes/<quiz_id>/results` | Get quiz results |
+## 🔌 API Modules
 
-### Dashboard
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/student/dashboard` | Student stats |
-| GET | `/api/admin/dashboard` | Admin stats |
-| GET | `/api/admin/students` | All students (admin) |
-| GET | `/api/admin/enrollments` | All enrollments (admin) |
-| GET | `/api/admin/progress` | All progress (admin) |
+The Flask backend provides REST endpoints for:
 
-## Installation & Running
+- **Authentication** — registration, login, logout, current-user information
+- **Courses** — listing, searching, creating, updating, and deleting courses
+- **Lessons** — retrieving and managing course lessons
+- **Enrollments** — enrolling students and retrieving their courses
+- **Progress** — recording and retrieving lesson completion
+- **Quizzes** — creating quizzes, managing questions, submitting answers, and retrieving results
+- **Dashboards** — student and administrator statistics
+
+## ⚙️ Getting Started
 
 ### Prerequisites
-- Python 3.10+
-- Node.js 18+
 
-### Backend
+Install:
+
+- Python 3.10 or later
+- Node.js 18 or later
+- npm
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/siva7101984/online-learning-platform.git
+cd online-learning-platform
+```
+
+### 2. Set up the backend
+
 ```bash
 cd backend
+python -m venv venv
+```
+
+Activate the virtual environment on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
+
+Start Flask:
+
+```bash
 python app.py
 ```
-Server starts at `http://localhost:5000`
 
-### Frontend
+The backend runs on:
+
+```text
+http://localhost:5000
+```
+
+### 3. Set up the frontend
+
+Open a second terminal in the project root:
+
 ```bash
 npm install
 npm run dev
 ```
-App opens at `http://localhost:5174`
 
-## Sample Credentials
+The Vite development server will display the local frontend URL in the terminal.
 
-| Role | Email | Password |
-|---|---|---|
-| Admin | admin@learn.com | admin123 |
-| Student | siva@learn.com | student123 |
+## 🔐 Environment Variables
 
-## Manual Testing
+Do not commit secrets or environment files to GitHub.
 
-1. Register a new student → Account created
-2. Login as student → Dashboard appears
-3. Search "Python" → Python course appears
-4. Click "View Course" → Course details show
-5. Click "Enroll Now" → Enrollment confirmed
-6. Open a lesson → Lesson content displays
-7. Click "Mark as Completed" → Progress bar increases
-8. Take quiz → Score displayed
-9. Login as admin → Admin dashboard with stats
-10. Admin creates a course → Course appears in list
-11. Admin deletes a course → Course removed
+Create environment variables for deployment as needed, for example:
 
-## Future Enhancements
-- Video lesson support
-- Certificate generation
-- Discussion forum
-- Payment integration
+```text
+SECRET_KEY=your-secure-secret-key
+```
+
+The repository's `.gitignore` excludes `.env` files.
+
+## 🧪 Testing the Main User Flow
+
+1. Register a student account.
+2. Log in as a student.
+3. Browse and search for courses.
+4. Open a course.
+5. Enroll in the course.
+6. Open lessons and mark them as completed.
+7. Check the progress indicator.
+8. Attempt the course quiz.
+9. Review the quiz score.
+10. Log in as an administrator.
+11. Create or edit courses, lessons, and quizzes.
+12. Review students, enrollments, and progress.
+
+## 📸 Screenshots
+
+Screenshots can be added here to showcase the main application screens:
+
+- Home / Course listing
+- Login and registration
+- Student dashboard
+- Course details
+- Lesson view
+- Quiz
+- Admin dashboard
+
+## 🚀 Future Enhancements
+
+- Video-based lessons
+- Course completion certificates
+- Discussion forums
 - Email notifications
+- Payment integration
+- More advanced analytics
+- Cloud database and production deployment
 
-## Author
-B.Tech CSE / AI & Data Science student project.
+## 📌 Project Highlights
+
+This project demonstrates practical experience with:
+
+- Full-stack web application development
+- React and TypeScript component design
+- REST API development with Flask
+- Authentication and session management
+- Role-based application features
+- Relational database design
+- CRUD operations
+- Progress tracking
+- Quiz and result management
+- Frontend-backend integration
+
+## 👨‍💻 Author
+
+**Siva Prasad**
+
+B.Tech — Computer Science / AI & Data Science
+
+---
+
+⭐ If you find this project useful, consider giving the repository a star.
